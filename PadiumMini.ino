@@ -3,6 +3,7 @@
 
 #include "commons.h"
 #include "display.h"
+#include "audio.h"
 
 #define DEBOUNCE_TIME 50
 #define PITCH_UP 7
@@ -14,40 +15,52 @@ const int BTN_DOWN = 0;
 const int BTN_PLAY = 1;
 const int BTN_UP = 2;
 
+
 void onButtonPressed(int idxBtn)
 {
     if (idxBtn == BTN_PLAY)
     {
-        if (playing) {
-            // stop
-            Serial.println("stop");
+        if (currentNotePlaying > -1) { // it's playing
+            if (currentNotePlaying == selectedNote) {
+                // stop
+                Serial.println("stop");
+                currentNotePlaying = -1;
+                stopAudio();
+            } else {
+                // play
+                Serial.println("play");
+                currentNotePlaying = selectedNote;
+                playAudio(currentPad + 1, currentNotePlaying + 1);
+            }
         } else {
             // play
             Serial.println("play");
+            currentNotePlaying = selectedNote;
+            playAudio(currentPad + 1, currentNotePlaying + 1);
         }
-        playing = !playing;
+        displayRefresh();
     } 
 
     if (idxBtn == BTN_DOWN) {
-        if (currentNote > 0) {
-            currentNote -= 1;
+        if (selectedNote > 0) {
+            selectedNote -= 1;
         } else {
-            currentNote = 11;
+            selectedNote = 11;
         }
-        currentNote = currentNote % 12;
-        Serial.print(NOTES[currentNote]);
+        selectedNote = selectedNote % 12;
+        Serial.print(NOTES[selectedNote]);
         Serial.println(" is Current Note ");
-        Serial.print(currentNote);
+        Serial.print(selectedNote);
         Serial.println("");
         displayRefresh();
     }
 
     if (idxBtn == BTN_UP) {
-        currentNote += 1;
-        currentNote = currentNote % 12;
-        Serial.print(NOTES[currentNote]);
+        selectedNote += 1;
+        selectedNote = selectedNote % 12;
+        Serial.print(NOTES[selectedNote]);
         Serial.println(" is Current Note ");
-        Serial.print(currentNote);
+        Serial.print(selectedNote);
         Serial.println("");
         displayRefresh();
     }
@@ -83,6 +96,7 @@ void setup() {
     Serial.println(F("Booting.."));
     displayInit();
     footSetup();
+    audioInit();
 }
 
 void loop() {

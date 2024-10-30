@@ -18,13 +18,10 @@ Folder structure
 const String PADS[] = {"WorshipPadz", "ChurchFont Warm", "MMQA Worship", "MPads Ambient", "HillSong Pad"};
 
 int currentPad = 4;
-int currentNote = 0;
+int selectedNote = 0;
 int Fader = 50;
 int currentVol = 20;
-
-bool playing = false;
-
-
+int currentNotePlaying = -1; // -1 is null
 const int NUM_BUTTONS = 3;
 
 
