@@ -15,9 +15,9 @@ Folder structure
 05 - MPads Hillsong
 06 - ChurchFont WAV
 *****/
-const String PADS[] = {"WorshipPadz", "ChurchFont Warm", "MMQA Worship", "MPads Ambient", "MPads HillSong"};
+const String PADS[] = {"WorshipPadz", "ChurchFont Warm", "MMQA Worship", "MPads Ambient", "HillSong Pad"};
 
-int currentPad = 5;
+int currentPad = 4;
 int currentNote = 0;
 int Fader = 50;
 int currentVol = 20;

@@ -2,8 +2,9 @@
 #include <ezButton.h>
 
 #include "commons.h"
+#include "display.h"
 
-#define DEBOUNCE_TIME 10
+#define DEBOUNCE_TIME 50
 #define PITCH_UP 7
 #define PITCH_DOWN 5
 #define ACTION 6
@@ -38,6 +39,7 @@ void onButtonPressed(int idxBtn)
         Serial.println(" is Current Note ");
         Serial.print(currentNote);
         Serial.println("");
+        displayRefresh();
     }
 
     if (idxBtn == BTN_UP) {
@@ -47,6 +49,7 @@ void onButtonPressed(int idxBtn)
         Serial.println(" is Current Note ");
         Serial.print(currentNote);
         Serial.println("");
+        displayRefresh();
     }
 }
 
@@ -77,7 +80,8 @@ void footEvent()
 
 void setup() {
     Serial.begin(115200);
-    Serial.println(F("Starting.."));
+    Serial.println(F("Booting.."));
+    displayInit();
     footSetup();
 }
 
