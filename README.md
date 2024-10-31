@@ -1,6 +1,6 @@
 # Padium Mini
 
-**# Padium Mini: Your Pocket-Sized Sound Palette**
+![logo](./assets/logo.png)
 
 **Open Source, Open Possibilities**
 
